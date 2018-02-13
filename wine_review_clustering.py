@@ -85,22 +85,16 @@ tfidf_vectorizer = TfidfVectorizer(max_df=0.90, max_features=None,
                                  min_df=0.1, stop_words='english',
                                  use_idf=True, tokenizer=tokenize_only)
 
-
 tfidf_matrix = tfidf_vectorizer.fit_transform(reviews)
 print(tfidf_matrix.shape)
 
 tfidf_df = pd.DataFrame(tfidf_matrix.toarray(), columns=tfidf_vectorizer.get_feature_names())
 tfidf_df.to_csv('tf-idf matrix.csv')
 
-
 terms = tfidf_vectorizer.get_feature_names()
 
 from sklearn.metrics.pairwise import cosine_similarity
 dist = 1 - cosine_similarity(tfidf_matrix)
-
-dist_df = pd.DataFrame(dist)
-
-dist_df.to_csv('1-Cosine Simlilarity.csv')
 
 
 from sklearn.cluster import KMeans
